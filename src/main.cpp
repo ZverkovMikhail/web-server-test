@@ -14,8 +14,11 @@ void setup(void) {
   Serial.begin(115200 , SERIAL_8N1);
   while (!Serial) 
     delay(50);
+    
+  WiFi.setHostname("ESP-Websocket-Test");
   WiFi.mode(WIFI_AP);
   WiFi.softAP(ssid, password);
+
   DisPlay.init();
   webServer.init();
   DisPlay.setLine(DisPlay.FIRST, ssid)
@@ -27,5 +30,12 @@ void setup(void) {
 }
 
 
-void loop(void) {         
+void loop(void) {  
+  // If client is connected ...
+  // if(wsClient != nullptr && wsClient->canSend()) {
+  //   // .. send hello message :-)
+  //   wsClient->text("Hello client");
+  // }
+  // // Wait 10 ms
+  // delay(10);       
 }
