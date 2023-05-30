@@ -36,30 +36,31 @@ const char index_html[] PROGMEM = R"rawliteral(
  let socket = new WebSocket("ws://192.168.4.1/ws");
 
 socket.onopen = function(e) {
-  alert("[open] Connection established");
+  console.log("[open] Connection established");
 };
 
 socket.onmessage = function(event) {
-  alert(`[message] Data received from server: ${event.data}`);
+  console.log(`[message] Data received from server: ${event.data}`);
 };
 
 socket.onclose = function(event) {
   if (event.wasClean) {
-    alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+    console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
   } else {
     // e.g. server process killed or network down
     // event.code is usually 1006 in this case
-    alert('[close] Connection died');
+    console.log('[close] Connection died');
+    socket = new WebSocket("ws://192.168.4.1/ws");
   }
 };
 
 socket.onerror = function(error) {
-  alert(`[error]`);
+  console.log(`[error]`);
 };
  
  function sendToServer(){
   let jsonMsg = `{"wifi_settings": {"ssid":"${document.querySelector("#ssid_id").value}", "pass":"${document.querySelector("#pswd_id").value}"}}`;
-alert(jsonMsg);
+console.log(jsonMsg);
 socket.send(jsonMsg);
  }
 </script>

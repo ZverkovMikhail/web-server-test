@@ -1,7 +1,8 @@
 #include <Arduino.h>
 #include <WiFi.h>
-#include "display/Display.h"
-#include <admin/AdminWebServer.h>
+#include "Display/Display.h"
+#include <AdminWebServer/AdminWebServer.h>
+#include "ACControl/ACHandler.h"
 
 const char* ssid = "ACRem";
 const char* password = "12345678";
@@ -21,21 +22,19 @@ void setup(void) {
 
   DisPlay.init();
   webServer.init();
+  ACHand.init();
   DisPlay.setLine(DisPlay.FIRST, ssid)
          ->setLine(DisPlay.SECOND, password)
          ->setLine(DisPlay.THIRD,  WiFi.softAPIP().toString().c_str())
          ->setLine(DisPlay.FOURTH, "inited")
          ->print();
+  ACStatus st = ACHand.getStatus();
+  st.print();
   delay(8000);
 }
 
 
 void loop(void) {  
-  // If client is connected ...
-  // if(wsClient != nullptr && wsClient->canSend()) {
-  //   // .. send hello message :-)
-  //   wsClient->text("Hello client");
-  // }
-  // // Wait 10 ms
-  // delay(10);       
+//  ACHand.setStatus(ACHand.getStatus());
+  // delay(1000);       
 }
